@@ -61,8 +61,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Circle.cs" />
     <Compile Include="Assets\Scripts\CircleRenderer.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Loader.cs" />
     <Compile Include="Assets\Scripts\Shape.cs" />
+    <Compile Include="Assets\Scripts\ShapeClickHandler.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Paul/Documents/Video Game Projects/Ripple/Unity/Ripple/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
