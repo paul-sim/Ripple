@@ -8,6 +8,10 @@ public class Loader : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+
+        QualitySettings.vSyncCount = 1;
+        // Application.targetFrameRate = 60;
+
         if (GameManager.instance == null) {
             Instantiate(gameManager);
         }

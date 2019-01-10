@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShapeClickHandler : MonoBehaviour {
 
+    bool clickedOnceBefore = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -15,6 +17,9 @@ public class ShapeClickHandler : MonoBehaviour {
 	}
 
     void OnMouseDown() {
-        (GameManager.getInstance()).StartRipple(this.transform.parent.gameObject);
+        if (clickedOnceBefore == false) { // prevents clicking on shape multiple times
+            clickedOnceBefore = true;
+            (GameManager.getInstance()).StartRipple(this.transform.parent.gameObject);
+        }
     }
 }

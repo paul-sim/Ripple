@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\CircleRenderer.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
+    <Compile Include="Assets\Scripts\RippleCollideHandler.cs" />
     <Compile Include="Assets\Scripts\Shape.cs" />
     <Compile Include="Assets\Scripts\ShapeClickHandler.cs" />
     <Reference Include="UnityEditor.StandardEvents">
