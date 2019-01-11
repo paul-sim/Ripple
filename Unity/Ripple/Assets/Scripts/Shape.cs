@@ -8,10 +8,13 @@ abstract public class Shape : MonoBehaviour {
     
     protected LineRenderer line;
     [SerializeField]
-    protected GameObject shapeSpriteObject;
-    protected SpriteRenderer shapeSprite;
+    protected GameObject shapeMassObject;
     [SerializeField]
     protected GameObject rippleColliderObject;
+    [SerializeField]
+    public PointRole pointRole;
+    [SerializeField]
+    private RailSlider attachedRailSlider;
     protected float rippleRadius; // current radius
     protected float rippleRadiusMax; // max ripple reaching distance
     protected int segmentsCount;
@@ -22,10 +25,9 @@ abstract public class Shape : MonoBehaviour {
     // Use this for initialization
     public void Start() {
         line = gameObject.GetComponent<LineRenderer>();
-        shapeSprite = GetComponentInChildren<SpriteRenderer>();
         rippleRadius = 0.5f; // start radius
         rippleRadiusMax = 5f;
-        rippleExpandRate = 3.0f;
+        rippleExpandRate = 2.0f;
         spriteFadeRate = 2.0f;
         triggered = false;
     }
@@ -33,18 +35,29 @@ abstract public class Shape : MonoBehaviour {
     public void Ripple() {
         triggered = true;
         StartCoroutine(DrawRipple());
-        StartCoroutine(FadeOutShapeSprite());
+        StartCoroutine(FadeOutShapeMass());
         StartCoroutine(FadeOutRipple());
     }
     
-    IEnumerator FadeOutShapeSprite() {
+    IEnumerator FadeOutShapeMass() {
+        SpriteRenderer shapeSprite = GetComponentInChildren<SpriteRenderer>();
+        // if attached to a rail slider, fade that out too
+        if (attachedRailSlider != null) {
+            attachedRailSlider.startFadeOutRailCoroutine();
+        }
+
         while (shapeSprite.color.a > 0) {
             Color spriteColor = shapeSprite.color;
             spriteColor.a -= spriteFadeRate * Time.deltaTime;
             shapeSprite.color = spriteColor;
             yield return new WaitForEndOfFrame(); // this syncs coroutine to frames so we can use Time.deltatime reliably
         }
-        Destroy(shapeSpriteObject);
+
+        Destroy(shapeMassObject);
+        // if this shape was a finish point, player has beat the level
+        if (pointRole == PointRole.FinishPoint) {
+            Debug.Log("You've beat this level.");
+        }
     }
 
     IEnumerator FadeOutRipple() {
@@ -60,6 +73,27 @@ abstract public class Shape : MonoBehaviour {
 
     public bool hasBeenTriggered () {
         return triggered;
+    }
+
+    public PointRole getPointRole() {
+        return pointRole;
+    }
+    
+    public bool hasRailSlider() {
+        if (attachedRailSlider != null) {
+            if (attachedRailSlider.attachedShapeObject == this.gameObject) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public RailSlider getAttachedRailSlider() {
+        return attachedRailSlider;
+    }
+
+    public float getSpriteFadeRate() {
+        return spriteFadeRate;
     }
 
     protected abstract IEnumerator DrawRipple();

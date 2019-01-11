@@ -15,29 +15,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public static GameManager getInstance() {
         return instance;
     }
 
+    // should only take shape objects in the parameter else errors..
     public void StartRipple(GameObject shapeObject) {
-        string shape = shapeObject.transform.name;
+        shapeObject.GetComponent<Shape>().Ripple();
+    }
 
-        switch (shape) {
-            case "Circle":
-                (shapeObject.GetComponent<Circle>()).Ripple();
-                break;
-            case "Square":
-                break;
-        }
+    public void ToggleRailSliderPosition(RailSlider railSliderObject) {
+        railSliderObject.ToggleSliderPosition();
     }
 }

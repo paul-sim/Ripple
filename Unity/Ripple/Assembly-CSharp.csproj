@@ -65,9 +65,12 @@
     <Compile Include="Assets\Scripts\CircleRenderer.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
+    <Compile Include="Assets\Scripts\RailSlider.cs" />
+    <Compile Include="Assets\Scripts\RailSliderTwoPoints.cs" />
     <Compile Include="Assets\Scripts\RippleCollideHandler.cs" />
     <Compile Include="Assets\Scripts\Shape.cs" />
     <Compile Include="Assets\Scripts\ShapeClickHandler.cs" />
+    <Compile Include="Assets\Scripts\Square.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Paul/Documents/Video Game Projects/Ripple/Unity/Ripple/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
