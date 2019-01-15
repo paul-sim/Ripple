@@ -17,7 +17,7 @@ abstract public class RailSlider : MonoBehaviour {
     public GameObject attachedShapeObject;
     
     public void Start () {
-        slideIncrementDistance = 1.5f;
+        slideIncrementDistance = 1.0f;
         attachedShapeObject.GetComponent<Shape>().getSpriteFadeRate();
 	}
 	

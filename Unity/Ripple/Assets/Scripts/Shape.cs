@@ -25,8 +25,8 @@ abstract public class Shape : MonoBehaviour {
     // Use this for initialization
     public void Start() {
         line = gameObject.GetComponent<LineRenderer>();
-        rippleRadius = 0.5f; // start radius
-        rippleRadiusMax = 5f;
+        rippleRadius = 0.3f; // start radius
+        rippleRadiusMax = 2.5f;
         rippleExpandRate = 2.0f;
         spriteFadeRate = 2.0f;
         triggered = false;
@@ -61,12 +61,21 @@ abstract public class Shape : MonoBehaviour {
     }
 
     IEnumerator FadeOutRipple() {
+        float startFadeMarkPercent = 0.5f;
+        float startFadeMarkDistance = startFadeMarkPercent * rippleRadiusMax;
+        
+        while ((rippleRadius / rippleRadiusMax) < startFadeMarkPercent) { // keep ripple alpha at 1 until it reaches a certain distance
+            yield return new WaitForEndOfFrame();
+        }
+
         while (line.startColor.a > 0) {
+            
             Color lineColor = line.startColor;
-            lineColor.a = 1 - (rippleRadius / rippleRadiusMax); // the closer the radius reaches rippleRadiusMax, the more opaque it becomes
+
+            lineColor.a = 1 - ((rippleRadius - startFadeMarkDistance) / (rippleRadiusMax - startFadeMarkDistance)); // the closer the radius reaches rippleRadiusMax, the more opaque it becomes
             line.startColor = line.endColor = lineColor;
 
-            yield return new WaitForEndOfFrame(); // this syncs coroutine to frames so we can use Time.deltatime reliably
+            yield return new WaitForEndOfFrame();
         }
         line.enabled = false;
     }
