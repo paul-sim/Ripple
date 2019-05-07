@@ -56,7 +56,7 @@ abstract public class Shape : MonoBehaviour {
         Destroy(shapeMassObject);
         // if this shape was a finish point, player has beat the level
         if (pointRole == PointRole.FinishPoint) {
-            Debug.Log("You've beat this level.");
+            Debug.Log("You beat this level.");
         }
     }
 
